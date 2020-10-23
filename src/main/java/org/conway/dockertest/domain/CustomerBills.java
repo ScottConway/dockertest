@@ -30,8 +30,8 @@ public class CustomerBills implements Serializable {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setPaid(boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public long getAmountDuePennies() {

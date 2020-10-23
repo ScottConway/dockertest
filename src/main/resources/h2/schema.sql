@@ -42,4 +42,4 @@ create table customer_bills
     due_date                date        not null,
     primary key (customer_account_id)
 );
-create index idx_cust_bills on customer_bills (customer_account_id, paid);
+create index idx_cust_bills on customer_bills (customer_account_id, is_paid);
