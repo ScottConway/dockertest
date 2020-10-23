@@ -2,6 +2,8 @@ package org.conway.dockertest.controller;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +34,7 @@ public class UploadControllerTest {
                 "text/plain", "Some dataset...".getBytes());
 
         MockMultipartHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.fileUpload("/uploadFile");
+                MockMvcRequestBuilders.multipart("/uploadFile");
 
         MvcResult result = mockMvc.perform(builder.file(mockMultiPartFile).param("domainType", "customer")).andReturn();
 
@@ -40,5 +42,30 @@ public class UploadControllerTest {
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         assertEquals("file uploaded", response.getContentAsString());
+    }
+
+    @ParameterizedTest(name = "domain type of ''{0}'' should have a repsonse of ''{1}'' and Http status of {2}")
+    @CsvSource({
+            "customer,file uploaded,200",
+            "CUStomer,file uploaded,200",
+            "bank,bank is not an acceptable domainType,400",
+            "bankaccount,bankaccount is not an acceptable domainType,400",
+            "customeraccount,customeraccount is not an acceptable domainType,400",
+            "customerbills,customerbills is not an acceptable domainType,400",
+            "bad,bad is not an acceptable domainType,400"
+    })
+    public void domainTypeTest(String domainType, String expectedResponseBody, int expectedHttpStatusValue) throws Exception {
+        MockMultipartFile mockMultiPartFile = new MockMultipartFile("file", "dummy.csv",
+                "text/plain", "Some dataset...".getBytes());
+
+        MockMultipartHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.multipart("/uploadFile");
+
+        MvcResult result = mockMvc.perform(builder.file(mockMultiPartFile).param("domainType", domainType)).andReturn();
+
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals(expectedHttpStatusValue, response.getStatus());
+        assertEquals(expectedResponseBody, response.getContentAsString());
     }
 }
