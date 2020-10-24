@@ -1,18 +1,18 @@
-create table if not exists customer
+create table if not exists customers
 (
     customer_id     bigint       not null,
     name            varchar(255) not null,
     primary key (customer_id)
 );
 
-create table if not exists bank
+create table if not exists banks
 (
     bank_id         bigint       not null,
     name            varchar(255) not null,
     primary key (bank_id)
 );
 
-create table if not exists bank_account
+create table if not exists bank_accounts
 (
     bank_account_id         bigint       not null,
     customer_id             bigint       not null,
@@ -21,9 +21,9 @@ create table if not exists bank_account
     account_balance_pennies bigint       default 0,
     primary key (bank_account_id)
 );
-create index if not exists idx_cust_bank on bank_account (customer_id, bank_id);
+create index if not exists idx_cust_bank on bank_accounts (customer_id, bank_id);
 
-create table if not exists customer_account
+create table if not exists customer_accounts
 (
     customer_account_id     bigint       not null,
     customer_id             bigint       not null,
@@ -31,7 +31,7 @@ create table if not exists customer_account
     business_name           varchar(255) not null,
     primary key (customer_account_id)
 );
-create index if not exists idx_cust_account on customer_account (customer_id, account_name);
+create index if not exists idx_cust_account on customer_accounts (customer_id, account_name);
 
 create table if not exists customer_bills
 (

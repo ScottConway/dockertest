@@ -9,15 +9,15 @@
         <id property="name" column="name"/>
     </resultMap>
     <insert id="insertCustomer" parameterType="org.conway.dockertest.domain.Customer">
-        insert into Customer (customer_id, name)
+        insert into customers (customer_id, name)
         values (#{customerId},#{name})
     </insert>
     <delete id="deleteCustomer" parameterType="org.conway.dockertest.domain.Customer">
-        delete from Customer where customer_id = #{customerId}
+        delete from customers where customer_id = #{customerId}
     </delete>
     <select id="findCustomerById" resultMap="customerResultMap">
         select c.customer_id, c.name
-        from customer c
+        from customers c
         where c.customer_id = #{customerId}
     </select>
 </mapper>
