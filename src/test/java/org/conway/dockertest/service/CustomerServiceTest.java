@@ -7,14 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 @ActiveProfiles("development")
 public class CustomerServiceTest {
-    private static final Customer CUSTOMER = new Customer(1, "Business Name.");
+    private static final Customer CUSTOMER = new Customer(1, "Business Name");
+    private static final Customer CUSTOMER2 = new Customer(2, "Another Business");
     private static final Long BAD_ID = 8675309L;
+
+    private static final String UPLOAD = String.format("Customer Id,Customer Name\n%d,%s\n%d,%s",
+            CUSTOMER.getCustomerId(), CUSTOMER.getName(), CUSTOMER2.getCustomerId(), CUSTOMER2.getName());
+
     @Autowired
     private CustomerService customerService;
 
@@ -41,5 +50,24 @@ public class CustomerServiceTest {
         assertEquals(CUSTOMER, foundCustomer);
         customerService.deleteCustomer(foundCustomer);
         assertNull(customerService.findCustomerById(foundCustomer.getCustomerId()));
+    }
+
+    @DisplayName("Upload a file from a stream.")
+    @Test
+    public void upload() {
+        assertNull(customerService.findCustomerById(CUSTOMER.getCustomerId()));
+        assertNull(customerService.findCustomerById(CUSTOMER2.getCustomerId()));
+        InputStream inputStream = new ByteArrayInputStream(UPLOAD.getBytes(Charset.forName("UTF-8")));
+
+        customerService.upload(inputStream);
+
+        assertEquals(CUSTOMER, customerService.findCustomerById(CUSTOMER.getCustomerId()));
+        assertEquals(CUSTOMER2, customerService.findCustomerById(CUSTOMER2.getCustomerId()));
+
+        customerService.deleteCustomer(CUSTOMER);
+        customerService.deleteCustomer(CUSTOMER2);
+
+        assertNull(customerService.findCustomerById(CUSTOMER.getCustomerId()));
+        assertNull(customerService.findCustomerById(CUSTOMER2.getCustomerId()));
     }
 }

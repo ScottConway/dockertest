@@ -1,10 +1,14 @@
 package org.conway.dockertest.domain;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Customer implements Serializable {
+    @CsvBindByName(column = "Customer Id")
     private long customerId;
+    @CsvBindByName(column = "Customer Name")
     private String name;
 
     public Customer() {
