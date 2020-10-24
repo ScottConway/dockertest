@@ -19,4 +19,8 @@ public class CustomerService {
     public Customer findCustomerById(long customerId) {
         return customerMapper.findCustomerById(customerId);
     }
+
+    public void deleteCustomer(Customer customer) {
+        customerMapper.deleteCustomer(customer);
+    }
 }
