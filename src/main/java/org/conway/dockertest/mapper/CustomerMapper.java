@@ -7,7 +7,7 @@ import org.conway.dockertest.domain.Customer;
 public interface CustomerMapper {
     void insertCustomer(Customer customer);
 
-    void deleteCustomer(Customer customer);
+    void deleteCustomer(long customerId);
 
     Customer findCustomerById(long customerId);
 }

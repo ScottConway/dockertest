@@ -12,7 +12,7 @@
         insert into customers (customer_id, name)
         values (#{customerId},#{name})
     </insert>
-    <delete id="deleteCustomer" parameterType="org.conway.dockertest.domain.Customer">
+    <delete id="deleteCustomer" parameterType="long">
         delete from customers where customer_id = #{customerId}
     </delete>
     <select id="findCustomerById" resultMap="customerResultMap">

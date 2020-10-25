@@ -27,8 +27,8 @@ public class CustomerService {
         return customerMapper.findCustomerById(customerId);
     }
 
-    public void deleteCustomer(Customer customer) {
-        customerMapper.deleteCustomer(customer);
+    public void deleteCustomer(long customerId) {
+        customerMapper.deleteCustomer(customerId);
     }
 
     public void upload(InputStream inputStream) {

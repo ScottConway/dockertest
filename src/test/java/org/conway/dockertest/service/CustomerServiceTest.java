@@ -39,7 +39,7 @@ public class CustomerServiceTest {
         Customer customer = new Customer(BAD_ID, "this business is not in the database.");
         //prove again the customer is not in the database
         assertNull(customerService.findCustomerById(customer.getCustomerId()));
-        customerService.deleteCustomer(customer);
+        customerService.deleteCustomer(customer.getCustomerId());
     }
 
     @DisplayName("Insert a customer and show that it is in the database by doing an select.")
@@ -48,7 +48,7 @@ public class CustomerServiceTest {
         customerService.insertCustomer(CUSTOMER);
         Customer foundCustomer = customerService.findCustomerById(CUSTOMER.getCustomerId());
         assertEquals(CUSTOMER, foundCustomer);
-        customerService.deleteCustomer(foundCustomer);
+        customerService.deleteCustomer(foundCustomer.getCustomerId());
         assertNull(customerService.findCustomerById(foundCustomer.getCustomerId()));
     }
 
@@ -64,8 +64,8 @@ public class CustomerServiceTest {
         assertEquals(CUSTOMER, customerService.findCustomerById(CUSTOMER.getCustomerId()));
         assertEquals(CUSTOMER2, customerService.findCustomerById(CUSTOMER2.getCustomerId()));
 
-        customerService.deleteCustomer(CUSTOMER);
-        customerService.deleteCustomer(CUSTOMER2);
+        customerService.deleteCustomer(CUSTOMER.getCustomerId());
+        customerService.deleteCustomer(CUSTOMER2.getCustomerId());
 
         assertNull(customerService.findCustomerById(CUSTOMER.getCustomerId()));
         assertNull(customerService.findCustomerById(CUSTOMER2.getCustomerId()));
