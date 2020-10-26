@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.conway.dockertest.mapper.BankMapper">
+    <resultMap id="bankResultMap" type="org.conway.dockertest.domain.Bank">
+        <id property="bankId" column="bank_id"/>
+        <id property="name" column="name"/>
+    </resultMap>
+    <insert id="insertBank" parameterType="org.conway.dockertest.domain.Bank">
+        insert into banks (bank_id, name)
+        values (#{bankId},#{name})
+    </insert>
+    <delete id="deleteBank" parameterType="long">
+        delete from banks where bank_id = #{bankId}
+    </delete>
+    <select id="findBankById" resultMap="bankResultMap">
+        select c.bank_id, c.name
+        from banks c
+        where c.bank_id = #{bankId}
+    </select>
+    <select id="findAll" resultMap="bankResultMap">
+        select c.bank_id, c.name
+        from banks c
+    </select>
+</mapper>
