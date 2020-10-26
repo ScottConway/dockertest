@@ -18,7 +18,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Customer>> all() {
 
         List<Customer> customerList = customerService.findAll();
