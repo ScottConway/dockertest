@@ -1,0 +1,14 @@
+version: "2.1"
+
+networks:
+  test:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile_dev
+    ports:
+      - "10100:10100"
+    networks:
+      - test
