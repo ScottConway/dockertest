@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -41,5 +42,9 @@ public class CustomerService {
         CsvToBean<Customer> customers = builder.withMappingStrategy(mappingStrategy).build();
 
         customers.forEach(customer -> insertCustomer(customer));
+    }
+
+    public List<Customer> findAll() {
+        return customerMapper.findAll();
     }
 }

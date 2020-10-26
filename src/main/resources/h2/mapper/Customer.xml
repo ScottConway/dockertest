@@ -20,4 +20,8 @@
         from customers c
         where c.customer_id = #{customerId}
     </select>
+    <select id="findAll" resultMap="customerResultMap">
+        select c.customer_id, c.name
+        from customers c
+    </select>
 </mapper>

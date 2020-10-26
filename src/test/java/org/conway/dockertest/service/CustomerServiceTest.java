@@ -1,6 +1,7 @@
 package org.conway.dockertest.service;
 
 import org.conway.dockertest.domain.Customer;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("development")
@@ -26,6 +27,12 @@ public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
+
+    @AfterEach
+    public void clearTestCustomersFromDatabase() {
+        customerService.deleteCustomer(CUSTOMER.getCustomerId());
+        customerService.deleteCustomer(CUSTOMER2.getCustomerId());
+    }
 
     @DisplayName("Try and find a non-existent customer will return null.")
     @Test
@@ -69,5 +76,27 @@ public class CustomerServiceTest {
 
         assertNull(customerService.findCustomerById(CUSTOMER.getCustomerId()));
         assertNull(customerService.findCustomerById(CUSTOMER2.getCustomerId()));
+    }
+
+    @DisplayName("Display all Customers")
+    @Test
+    public void all() {
+        assertNull(customerService.findCustomerById(CUSTOMER.getCustomerId()));
+        assertNull(customerService.findCustomerById(CUSTOMER2.getCustomerId()));
+        InputStream inputStream = new ByteArrayInputStream(UPLOAD.getBytes(Charset.forName("UTF-8")));
+
+        customerService.upload(inputStream);
+
+        List<Customer> customerList = customerService.findAll();
+        assertNotNull(customerList);
+        assertEquals(2, customerList.size());
+        assertTrue(customerList.contains(CUSTOMER));
+        assertTrue(customerList.contains(CUSTOMER2));
+
+        customerService.deleteCustomer(CUSTOMER.getCustomerId());
+        customerService.deleteCustomer(CUSTOMER2.getCustomerId());
+        customerList = customerService.findAll();
+        assertNotNull(customerList);
+        assertTrue(customerList.isEmpty());
     }
 }
