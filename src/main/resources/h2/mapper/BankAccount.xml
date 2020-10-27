@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.conway.dockertest.mapper.BankAccountMapper">
+    <resultMap id="bankResultMap" type="org.conway.dockertest.domain.BankAccount">
+        <id property="bankAccountId" column="bank_account_id"/>
+        <id property="customerId" column="customer_id"/>
+        <id property="bankId" column="bank_id"/>
+        <id property="routingNumber" column="routing_number"/>
+        <id property="accountNumber" column="account_number"/>
+        <id property="name" column="name"/>
+    </resultMap>
+    <insert id="insertBankAccount" parameterType="org.conway.dockertest.domain.BankAccount">
+        insert into bank_accounts (bank_account_id, customer_id, bank_id, name, routing_number, account_number)
+        values (#{bankAccountId},#{customerId},#{bankId},#{name},#{routingNumber},#{accountNumber})
+    </insert>
+    <delete id="deleteBankAccount" parameterType="long">
+        delete from bank_accounts where bank_account_id = #{bankAccountId}
+    </delete>
+    <select id="findBankAccountById" resultMap="bankResultMap">
+        select ba.bank_account_id, ba.customer_id, ba.bank_id, ba.name, ba.routing_number, ba.account_number
+        from bank_accounts ba
+        where ba.bank_account_id = #{bankAccountId}
+    </select>
+    <select id="findAll" resultMap="bankResultMap">
+        select ba.bank_account_id, ba.customer_id, ba.bank_id, ba.name, ba.routing_number, ba.account_number
+        from bank_accounts ba
+    </select>
+</mapper>

@@ -16,12 +16,12 @@
         delete from banks where bank_id = #{bankId}
     </delete>
     <select id="findBankById" resultMap="bankResultMap">
-        select c.bank_id, c.name
-        from banks c
-        where c.bank_id = #{bankId}
+        select b.bank_id, b.name
+        from banks b
+        where b.bank_id = #{bankId}
     </select>
     <select id="findAll" resultMap="bankResultMap">
-        select c.bank_id, c.name
-        from banks c
+        select b.bank_id, b.name
+        from banks b
     </select>
 </mapper>

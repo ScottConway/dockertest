@@ -1,0 +1,4 @@
+Bank Account Id,Customer Id,Bank Id,Account Name           ,Routing Number,Account Number
+1              ,1000       ,1      ,Simple Checking Account,123456789     ,000123458675309
+2              ,1001       ,1      ,Main Checking Account  ,123456789     ,000967658675309
+3              ,1001       ,3      ,Secondary Account      ,123987456     ,000123456987
