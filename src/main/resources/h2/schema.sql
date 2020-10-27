@@ -18,7 +18,8 @@ create table if not exists bank_accounts
     customer_id             bigint       not null,
     bank_id                 bigint       not null,
     name                    varchar(255) not null,
-    account_balance_pennies bigint       default 0,
+    routing_number          varchar(32)  not null,
+    account_number          varchar(32)  not null,
     primary key (bank_account_id)
 );
 create index if not exists idx_cust_bank on bank_accounts (customer_id, bank_id);

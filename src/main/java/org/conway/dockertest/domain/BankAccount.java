@@ -7,7 +7,8 @@ public class BankAccount implements Serializable {
     private long customerId;
     private long bankId;
     private String name;
-    private long accountBalancePennies;
+    private String routingNumber;
+    private String accountNumber;
 
     public long getBankAccountId() {
         return bankAccountId;
@@ -41,11 +42,19 @@ public class BankAccount implements Serializable {
         this.name = name;
     }
 
-    public long getAccountBalancePennies() {
-        return accountBalancePennies;
+    public String getRoutingNumber() {
+        return routingNumber;
     }
 
-    public void setAccountBalancePennies(long accountBalancePennies) {
-        this.accountBalancePennies = accountBalancePennies;
+    public void setRoutingNumber(String routingNumber) {
+        this.routingNumber = routingNumber;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }
