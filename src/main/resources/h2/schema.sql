@@ -41,6 +41,6 @@ create table if not exists customer_bills
     is_paid                 boolean default false,
     amount_due_pennies      bigint      not null,
     due_date                date        not null,
-    primary key (customer_account_id)
+    primary key (customer_bill_id)
 );
 create index if not exists idx_cust_bills on customer_bills (customer_account_id, is_paid);

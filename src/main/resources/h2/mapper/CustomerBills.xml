@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.conway.dockertest.mapper.CustomerBillMapper">
+    <resultMap id="customerBillResultMap" type="org.conway.dockertest.domain.CustomerBill">
+        <id property="customerBillId" column="customer_bill_id"/>
+        <id property="customerAccountId" column="customer_account_id"/>
+        <id property="isPaid" column="is_paid"/>
+        <id property="amountDuePennies" column="amount_due_pennies"/>
+        <id property="dueDate" column="due_date"/>
+    </resultMap>
+    <insert id="insertCustomerBill" parameterType="org.conway.dockertest.domain.CustomerBill">
+        insert into customer_bills (customer_bill_id, customer_account_id, is_paid, amount_due_pennies, due_date)
+        values (#{customerBillId},#{customerAccountId},#{isPaid},#{amountDuePennies},#{dueDate})
+    </insert>
+    <delete id="deleteCustomerBill" parameterType="long">
+        delete from customer_bills where customer_bill_id = #{customerBillId}
+    </delete>
+    <select id="findCustomerBillById" resultMap="customerBillResultMap">
+        select cb.customer_bill_id, cb.customer_account_id, cb.is_paid, cb.amount_due_pennies, cb.due_date
+        from customer_bills cb
+        where cb.customer_bill_id = #{customerBillId}
+    </select>
+    <select id="findAll" resultMap="customerBillResultMap">
+        select cb.customer_bill_id, cb.customer_account_id, cb.is_paid, cb.amount_due_pennies, cb.due_date
+        from customer_bills cb
+    </select>
+</mapper>

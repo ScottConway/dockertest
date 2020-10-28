@@ -1,10 +1,28 @@
 package org.conway.dockertest.domain;
 
+import com.opencsv.bean.CsvBindByName;
+
+import java.util.Objects;
+
 public class CustomerAccount {
+    @CsvBindByName(column = "Customer Account Id")
     private long customerAccountId;
+    @CsvBindByName(column = "Customer Id")
     private long customerId;
+    @CsvBindByName(column = "Account Name")
     private String accountName;
+    @CsvBindByName(column = "Business Name")
     private String businessName;
+
+    public CustomerAccount() {
+    }
+
+    public CustomerAccount(long customerAccountId, long customerId, String accountName, String businessName) {
+        this.customerAccountId = customerAccountId;
+        this.customerId = customerId;
+        this.accountName = accountName;
+        this.businessName = businessName;
+    }
 
     public long getCustomerAccountId() {
         return customerAccountId;
@@ -36,5 +54,21 @@ public class CustomerAccount {
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerAccount)) return false;
+        CustomerAccount that = (CustomerAccount) o;
+        return customerAccountId == that.customerAccountId &&
+                customerId == that.customerId &&
+                Objects.equals(accountName, that.accountName) &&
+                Objects.equals(businessName, that.businessName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerAccountId, customerId, accountName, businessName);
     }
 }

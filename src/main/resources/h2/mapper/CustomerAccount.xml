@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.conway.dockertest.mapper.CustomerAccountMapper">
+    <resultMap id="customerAccountResultMap" type="org.conway.dockertest.domain.CustomerAccount">
+        <id property="customerAccountId" column="customer_account_id"/>
+        <id property="customerId" column="customer_id"/>
+        <id property="accountName" column="account_name"/>
+        <id property="businessName" column="business_name"/>
+    </resultMap>
+    <insert id="insertCustomerAccount" parameterType="org.conway.dockertest.domain.CustomerAccount">
+        insert into customer_accounts (customer_account_id, customer_id, account_name, business_name)
+        values (#{customerAccountId},#{customerId},#{accountName},#{businessName})
+    </insert>
+    <delete id="deleteCustomerAccount" parameterType="long">
+        delete from customer_accounts where customer_account_id = #{customerAccountId}
+    </delete>
+    <select id="findCustomerAccountById" resultMap="customerAccountResultMap">
+        select ca.customer_account_id, ca.customer_id, ca.account_name, ca.business_name
+        from customer_accounts ca
+        where ca.customer_account_id = #{customerAccountId}
+    </select>
+    <select id="findAll" resultMap="customerAccountResultMap">
+        select ca.customer_account_id, ca.customer_id, ca.account_name, ca.business_name
+        from customer_accounts ca
+    </select>
+</mapper>
