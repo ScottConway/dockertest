@@ -1,7 +1,9 @@
 package org.conway.dockertest.controller;
 
+import org.conway.dockertest.domain.AccountBill;
 import org.conway.dockertest.domain.Customer;
 import org.conway.dockertest.domain.CustomerAccount;
+import org.conway.dockertest.service.CustomerAccountBillService;
 import org.conway.dockertest.service.CustomerAccountService;
 import org.conway.dockertest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private CustomerAccountService accountService;
+    @Autowired
+    private CustomerAccountBillService accountBillService;
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> all() {
@@ -63,6 +67,16 @@ public class CustomerController {
             return new ResponseEntity<>(String.format("No accounts found for customer with id %d", id), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(accounts, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/{id}/bills")
+    public ResponseEntity<Object> findAllBillsForCustomerId(@PathVariable long id) {
+        List<AccountBill> bills = accountBillService.findBillsByCustomerId(id);
+        if (bills.isEmpty()) {
+            return new ResponseEntity<>(String.format("No bills found for customer with id %d", id), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(bills, HttpStatus.OK);
         }
     }
 }
