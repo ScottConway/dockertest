@@ -1,4 +1,4 @@
 	Customer Billing Id,Customer Account Id,Paid In Full,Amount Due (Pennies),Due Date
 	1                  ,1                  ,false       ,100000              ,12/1/2020
 	2                  ,2                  ,false       ,50000               ,11/10/2020
-	3                  ,3                  ,true        ,Office Supplies     ,10/1/2020
+	3                  ,3                  ,true        ,10000               ,10/1/2020
