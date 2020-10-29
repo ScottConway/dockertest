@@ -1,0 +1,660 @@
+{
+  "info": {
+    "_postman_id": "55dc53fb-4b9b-4abf-b003-3765bb9b98d3",
+    "name": "Docker Test",
+    "description": "Running a spring boot app in docker that loads data into a database. ",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Load Customer file",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/Users/scott/Documents/workspace/dockertest/src/main/resources/csvFiles/customer.csv"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "upload"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all customers",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all accounts for a customer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/1001/accounts",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "1001",
+            "accounts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all bills for a customer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/1000/bills",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "1000",
+            "bills"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all unpaid bills for a customer due in a given number of days",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/1001/billsDueInDays/30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "1001",
+            "billsDueInDays",
+            "30"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "read Customer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/read/1000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "read",
+            "1000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete customer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/delete/1000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "delete",
+            "1000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Load Customer bills",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/Users/scott/Documents/workspace/dockertest/src/main/resources/csvFiles/customerBills.csv"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/bill/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "bill",
+            "upload"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all customers bills",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/bill",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "bill"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "read a cusomer bill",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/bill/read/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "bill",
+            "read",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete Customer bill",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/bill/delete/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "bill",
+            "delete",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Load Customer accounts",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/Users/scott/Documents/workspace/dockertest/src/main/resources/csvFiles/customerAccount.csv"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/account/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "account",
+            "upload"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all customers accounts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/account",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "account"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "read CustomerAccount",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/account/read/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "account",
+            "read",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete Customer Account",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/customer/account/delete/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "customer",
+            "account",
+            "delete",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Load bank  file",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/Users/scott/Documents/workspace/dockertest/src/main/resources/csvFiles/bank.csv"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10100/bank/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bank",
+            "upload"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all banks",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bank",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bank"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "read Bank",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bank/read/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bank",
+            "read",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete bank",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bank/delete/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bank",
+            "delete",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Load bank account file",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/Users/scott/Documents/workspace/dockertest/src/main/resources/csvFiles/bankAccount.csv"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10100/bankAccount/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bankAccount",
+            "upload"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "find all bank accounts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bankAccount",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bankAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "read Bank Account",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bankAccount/read/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bankAccount",
+            "read",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete bank Account",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://localhost:10100/bankAccount/delete/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10100",
+          "path": [
+            "bankAccount",
+            "delete",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
