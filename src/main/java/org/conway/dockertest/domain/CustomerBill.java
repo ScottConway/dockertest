@@ -2,6 +2,8 @@ package org.conway.dockertest.domain;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
+import com.opencsv.bean.processor.PreAssignmentProcessor;
+import org.conway.dockertest.util.TrimSpacesThatIntellijFormatterKeepsPuttingIn;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +14,7 @@ public class CustomerBill implements Serializable {
     private long customerBillId;
     @CsvBindByName(column = "Customer Account Id")
     private long customerAccountId;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Paid In Full")
     private boolean isPaid;
     @CsvBindByName(column = "Amount Due (Pennies)")

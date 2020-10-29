@@ -94,4 +94,19 @@ public class CustomerAccountBillServiceTest {
         assertEquals(1, accountBillService.findBillsByCustomerId(CUSTOMER_ID1).size());
         assertEquals(3, accountBillService.findBillsByCustomerId(CUSTOMER_ID2).size());
     }
+
+    @DisplayName("Display all unpaid bills due for a given customer by a given number of days.")
+    @Test
+    public void findUnpaidBillsByCustomerAndDaysDue() {
+        assertEquals(0, accountBillService.findCustomerUnpaidBillsDueInDays(BAD_ID, 120).size());
+        assertEquals(0, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID1, 59).size());
+        assertEquals(1, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID1, 60).size());
+        assertEquals(1, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID1, 61).size());
+        assertEquals(1, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 0).size());
+        assertEquals(1, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 9).size());
+        assertEquals(2, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 10).size());
+        assertEquals(2, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 19).size());
+        assertEquals(2, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 20).size());
+        assertEquals(2, accountBillService.findCustomerUnpaidBillsDueInDays(CUSTOMER_ID2, 60).size());
+    }
 }

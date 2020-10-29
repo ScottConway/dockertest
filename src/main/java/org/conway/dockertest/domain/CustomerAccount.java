@@ -1,6 +1,8 @@
 package org.conway.dockertest.domain;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.processor.PreAssignmentProcessor;
+import org.conway.dockertest.util.TrimSpacesThatIntellijFormatterKeepsPuttingIn;
 
 import java.util.Objects;
 
@@ -9,8 +11,10 @@ public class CustomerAccount {
     private long customerAccountId;
     @CsvBindByName(column = "Customer Id")
     private long customerId;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Account Name")
     private String accountName;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Business Name")
     private String businessName;
 

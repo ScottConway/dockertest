@@ -1,6 +1,8 @@
 package org.conway.dockertest.domain;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.processor.PreAssignmentProcessor;
+import org.conway.dockertest.util.TrimSpacesThatIntellijFormatterKeepsPuttingIn;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,10 +14,13 @@ public class BankAccount implements Serializable {
     private long customerId;
     @CsvBindByName(column = "Bank Id")
     private long bankId;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Account Name")
     private String name;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Routing Number")
     private String routingNumber;
+    @PreAssignmentProcessor(processor = TrimSpacesThatIntellijFormatterKeepsPuttingIn.class)
     @CsvBindByName(column = "Account Number")
     private String accountNumber;
 

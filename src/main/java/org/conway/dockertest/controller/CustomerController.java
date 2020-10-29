@@ -79,4 +79,14 @@ public class CustomerController {
             return new ResponseEntity<>(bills, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/{id}/billsDueInDays/{numDays}")
+    public ResponseEntity<Object> findAllBillsForCustomerDueInDays(@PathVariable long id, @PathVariable int numDays) {
+        List<AccountBill> bills = accountBillService.findCustomerUnpaidBillsDueInDays(id, numDays);
+        if (bills.isEmpty()) {
+            return new ResponseEntity<>(String.format("No bills found for customer with id %d that are due in %d days", id, numDays), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(bills, HttpStatus.OK);
+        }
+    }
 }
