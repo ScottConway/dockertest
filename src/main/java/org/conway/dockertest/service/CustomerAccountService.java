@@ -46,4 +46,8 @@ public class CustomerAccountService {
     public List<CustomerAccount> findAll() {
         return customerAccountMapper.findAll();
     }
+
+    public List<CustomerAccount> findCustomerAccountByCustomerId(long customerId) {
+        return customerAccountMapper.findCustomerAccountByCustomerId(customerId);
+    }
 }

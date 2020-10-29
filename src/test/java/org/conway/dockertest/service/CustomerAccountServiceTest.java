@@ -18,8 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("development")
 public class CustomerAccountServiceTest {
-    private static final CustomerAccount ACCOUNT = new CustomerAccount(1, 1000, "Widget Supplier", "Widgets R US");
-    private static final CustomerAccount ACCOUNT2 = new CustomerAccount(2, 1001, "Parts Supplier", "Widgets R US");
+    private static final long CUSTOMER_ID1 = 1000;
+    private static final long CUSTOMER_ID2 = 1001;
+    private static final CustomerAccount ACCOUNT = new CustomerAccount(1, CUSTOMER_ID1, "Widget Supplier", "Widgets R US");
+    private static final CustomerAccount ACCOUNT2 = new CustomerAccount(2, CUSTOMER_ID2, "Parts Supplier", "Widgets R US");
     private static final Long BAD_ID = 8675309L;
 
     private static final String UPLOAD = String.format("Customer Account Id, Customer Id,Account Name,Business Name\n%d,%d,%s,%s\n%d,%d,%s,%s",
@@ -44,7 +46,7 @@ public class CustomerAccountServiceTest {
     @DisplayName("Nothing will happen when you delete a non-existent customer.")
     @Test
     public void deleteNonExistentCustomerAccount() {
-        CustomerAccount customer = new CustomerAccount(BAD_ID, 1000, "account does not exist", "business does not exist");
+        CustomerAccount customer = new CustomerAccount(BAD_ID, CUSTOMER_ID1, "account does not exist", "business does not exist");
         //prove again the customer is not in the database
         assertNull(customerService.findCustomerAccountById(customer.getCustomerAccountId()));
         customerService.deleteCustomerAccount(customer.getCustomerAccountId());
@@ -99,5 +101,28 @@ public class CustomerAccountServiceTest {
         customerList = customerService.findAll();
         assertNotNull(customerList);
         assertTrue(customerList.isEmpty());
+    }
+
+    @DisplayName("find all accounts for a given customer will return empty list when there is no data.")
+    @Test
+    public void findAllCustomerAccountsByCustomerIdNoData() {
+        assertTrue(customerService.findCustomerAccountByCustomerId(CUSTOMER_ID1).isEmpty());
+    }
+
+    @DisplayName("find all accounts for a given customer")
+    @Test
+    public void findAllCustomerAccountsByCustomerId() {
+        assertTrue(customerService.findCustomerAccountByCustomerId(CUSTOMER_ID1).isEmpty());
+        InputStream inputStream = new ByteArrayInputStream(UPLOAD.getBytes(Charset.forName("UTF-8")));
+
+        customerService.upload(inputStream);
+
+        List<CustomerAccount> customerAccounts1 = customerService.findCustomerAccountByCustomerId(CUSTOMER_ID1);
+        List<CustomerAccount> customerAccounts2 = customerService.findCustomerAccountByCustomerId(CUSTOMER_ID2);
+
+        assertEquals(1, customerAccounts1.size());
+        assertEquals(1, customerAccounts2.size());
+        assertEquals(ACCOUNT, customerAccounts1.get(0));
+        assertEquals(ACCOUNT2, customerAccounts2.get(0));
     }
 }

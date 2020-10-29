@@ -22,6 +22,11 @@
         from customer_accounts ca
         where ca.customer_account_id = #{customerAccountId}
     </select>
+    <select id="findCustomerAccountByCustomerId" resultMap="customerAccountResultMap">
+        select ca.customer_account_id, ca.customer_id, ca.account_name, ca.business_name
+        from customer_accounts ca
+        where ca.customer_id = #{customerId}
+    </select>
     <select id="findAll" resultMap="customerAccountResultMap">
         select ca.customer_account_id, ca.customer_id, ca.account_name, ca.business_name
         from customer_accounts ca

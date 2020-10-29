@@ -1,6 +1,8 @@
 package org.conway.dockertest.controller;
 
 import org.conway.dockertest.domain.Customer;
+import org.conway.dockertest.domain.CustomerAccount;
+import org.conway.dockertest.service.CustomerAccountService;
 import org.conway.dockertest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerAccountService accountService;
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> all() {
@@ -50,5 +54,15 @@ public class CustomerController {
     public ResponseEntity<String> delete(@PathVariable long id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>("Customer deleted.", HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/accounts")
+    public ResponseEntity<Object> findAllAccountsForCustomerId(@PathVariable long id) {
+        List<CustomerAccount> accounts = accountService.findCustomerAccountByCustomerId(id);
+        if (accounts.isEmpty()) {
+            return new ResponseEntity<>(String.format("No accounts found for customer with id %d", id), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(accounts, HttpStatus.OK);
+        }
     }
 }

@@ -15,5 +15,7 @@ public interface CustomerAccountMapper {
 
     CustomerAccount findCustomerAccountById(long customerAccountId);
 
+    List<CustomerAccount> findCustomerAccountByCustomerId(long customerId);
+
     List<CustomerAccount> findAll();
 }
